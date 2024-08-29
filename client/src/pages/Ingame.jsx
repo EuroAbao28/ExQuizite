@@ -10,9 +10,6 @@ import { BsQuestionCircleFill } from "react-icons/bs";
 import { FaForward } from "react-icons/fa";
 import { ImHome } from "react-icons/im";
 import { IoPlay } from "react-icons/io5";
-import trophy from "../assets/trophy.png";
-import badge from "../assets/badge.png";
-import bulb from "../assets/bulb.png";
 import sports from "../assets/sports.png";
 import mythology from "../assets/mythology.png";
 import scienceNature from "../assets/scienceNature.png";
@@ -39,7 +36,7 @@ function decodeHtmlEntities(text) {
   return he.decode(text);
 }
 
-function GeneralKnowledge() {
+function Ingame() {
   const { user, updateStats } = useUserContext();
   const navigate = useNavigate();
   const location = useLocation();
@@ -253,7 +250,6 @@ function GeneralKnowledge() {
     clearInterval(timerRef.current);
 
     // calle the function for opening the result modal
-    console.log("open result called");
     handleOpenResultModal();
   };
 
@@ -313,13 +309,6 @@ function GeneralKnowledge() {
     const avgTimeBonus = baseExp * avtTimeDecimal(avgTime);
 
     const totalExp = baseExp + accuracyBonus + avgTimeBonus;
-
-    console.log("TIME_CONSUMED", timeConsumed);
-
-    console.log("BASE_EXP", baseExp);
-    console.log("ACCURACY_BONUS", accuracyBonus);
-    console.log("AVG_TIME_BONUS", avgTimeBonus);
-    console.log("TOTAL_EXP", totalExp);
 
     return totalExp;
   };
@@ -565,23 +554,23 @@ function GeneralKnowledge() {
           {/* backdrop */}
           <div className="absolute inset-0 z-10 flex items-center justify-center animate-opacityShow bg-black/20 backdrop-blur-sm"></div>
 
-          <div className="z-50 ">
-            <Confetti
-              mode="boom"
-              particleCount={150}
-              shapeSize={12}
-              deg={90}
-              effectCount={1}
-              spreadDeg={100}
-              x={0.5}
-              y={0.06}
-              launchSpeed={1.6}
-              colors={["#ff577f", "#ff884b"]}
-            />
-          </div>
-
           {/* modal div */}
-          <div className="absolute inset-0 z-20 flex items-center justify-center">
+          <div className="absolute inset-0 z-20 flex items-center justify-center overflow-hidden">
+            <div className="z-50 ">
+              <Confetti
+                mode="boom"
+                particleCount={150}
+                shapeSize={12}
+                deg={90}
+                effectCount={1}
+                spreadDeg={100}
+                x={0.5}
+                y={0.06}
+                launchSpeed={1.6}
+                colors={["#ff577f", "#ff884b"]}
+              />
+            </div>
+
             <div className="p-4 rounded-xl shadow animate-modalShow bg-orange-50 max-w-[30rem] w-full mx-4">
               <header className="mt-2 ">
                 <h1 className="text-xl font-bold text-center text-green-800 ">
@@ -649,8 +638,9 @@ function GeneralKnowledge() {
                   <p>Total Exp Points</p>
 
                   <p className="absolute p-2 hidden group-hover:block text-xs shadow-md backdrop-blur-sm outline outline-1 outline-green-800/30 bg-white/50 rounded-lg bottom-6 w-[12rem]">
-                    Total EXP is the points gained from correct answers,
-                    accuracy, and speed.
+                    You earn 50 points per correct answer, plus bonuses based on
+                    your accuracy and speed. Higher accuracy and faster answers
+                    means more points!
                   </p>
                   <p className="px-2 text-lg font-bold text-orange-500 rounded-lg">
                     {handleTotalExp()}
@@ -680,4 +670,4 @@ function GeneralKnowledge() {
   );
 }
 
-export default GeneralKnowledge;
+export default Ingame;

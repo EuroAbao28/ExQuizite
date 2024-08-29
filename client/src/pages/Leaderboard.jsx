@@ -51,7 +51,6 @@ function Leaderboard() {
 
   const handleChangePage = (direction) => {
     if (direction === "next" && page * limit < totalUsers) {
-      console.log("plus 1");
       setPage((prev) => prev + 1);
     } else if (direction === "prev" && page > 1) {
       setPage((prev) => prev - 1);
