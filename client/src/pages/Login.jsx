@@ -87,6 +87,11 @@ function Login() {
           </p>
         </form>
       </div>
+
+      <div className="absolute bottom-0 left-0 right-0 flex flex-col items-center justify-center pb-2 opacity-60">
+        <h5 className="text-sm font-semibold tracking-wider">Euro Abao</h5>
+        <p className="text-xs">Developed by</p>
+      </div>
     </MainContainer>
   );
 }
