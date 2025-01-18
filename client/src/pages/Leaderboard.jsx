@@ -90,102 +90,98 @@ function Leaderboard() {
         <SubHeaderButton>Leaderboard</SubHeaderButton>
       </div>
       {isLoading ? (
-        <div className="flex justify-center mt-40 ">
-          <div className="flex items-center gap-2 text-lg text-orange-800/60">
-            <span className="loading loading-spinner loading-md"></span>
-            <p>Fetching Users.</p>
-          </div>
-        </div>
-      ) : (
-        <>
-          <div className="flex mt-6 overflow-auto">
-            <table className="table max-sm:table-xs">
-              <thead className="sticky top-0 z-10 bg-orange-50">
-                <tr>
-                  <th>
-                    <p className="text-center">{totalUsers}</p>
-                  </th>
-                  <th>Username</th>
-                  <th>Quiz Taken</th>
-                  <th>Avg Time</th>
-                  <th>Accuracy</th>
-                  <th>Exp Points</th>
-                </tr>
-              </thead>
+        <div className="  mt-24 flex gap-4 justify-center">
+           <span className="loading loading-spinner loading-sm"></span>
+           <p className="text-lg">Loading.</p>
+            </div>
+      ) : ( <div className="flex-1 overflow-hidden flex flex-col">
+        <div className="flex mt-6 overflow-auto">
+          <table className="table max-sm:table-xs">
+            <thead className="sticky top-0 z-10 bg-orange-50">
+              <tr>
+                <th>
+                  <p className="text-center">{totalUsers}</p>
+                </th>
+                <th>Username</th>
+                <th>Quiz Taken</th>
+                <th>Avg Time</th>
+                <th>Accuracy</th>
+                <th>Exp Points</th>
+              </tr>
+            </thead>
 
-              <tbody>
-                {allUsers.map((user, index) => (
-                  <tr
-                    key={user._id}
-                    className={classNames(
-                      "hover:bg-green-500/20 hover:text-green-800",
-                      {
-                        "bg-orange-500/10 hover:bg-orange-500/20 hover:text-orange-800":
-                          currentUser._id === user._id,
-                      }
-                    )}>
-                    <td>{getRank((page - 1) * limit + index + 1)}</td>
+            <tbody>
+              {allUsers.map((user, index) => (
+                <tr
+                  key={user._id}
+                  className={classNames(
+                    "hover:bg-green-500/20 hover:text-green-800",
+                    {
+                      "bg-orange-500/10 hover:bg-orange-500/20 hover:text-orange-800":
+                        currentUser._id === user._id,
+                    }
+                  )}>
+                  <td>{getRank((page - 1) * limit + index + 1)}</td>
 
-                    <td>
-                      <div className="flex items-center gap-2">
-                        <div className="w-8 aspect-square mask mask-squircle ">
-                          <img
-                            src={`https://api.dicebear.com/9.x/bottts-neutral/svg?seed=${
-                              user.username + user.firstname
-                            }`}
-                            alt="User Avatar"
-                          />
-                        </div>
-
-                        <div>
-                          <h3> {user.username}</h3>
-                          {getRankBadge(GetRankTag(user.exp), "text-xs")}
-                        </div>
+                  <td>
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 aspect-square mask mask-squircle ">
+                        <img
+                          src={`https://api.dicebear.com/9.x/bottts-neutral/svg?seed=${
+                            user.username + user.firstname
+                          }`}
+                          alt="User Avatar"
+                        />
                       </div>
-                    </td>
-                    <td>{user.total_questionTaken}</td>
-                    <td>
-                      {user.total_questionTaken
-                        ? (
-                            user.total_consumedTime / user.total_questionTaken
-                          ).toFixed(2) + "s"
-                        : 0}
-                    </td>
-                    <td>
-                      {user.total_questionTaken
-                        ? (
-                            (user.total_correctAnswers /
-                              user.total_questionTaken) *
-                            100
-                          ).toFixed(2) + "%"
-                        : 0}
-                    </td>
-                    <td>{user.exp}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
 
-          <div className="z-10 flex items-center justify-center gap-6 py-10 max-sm:pt-8 bg-orange-50">
-            <button
-              onClick={() => handleChangePage("prev")}
-              className="flex items-center gap-2 px-4 py-2 text-white transition-all bg-green-500 rounded-lg active:scale-95">
-              <LuChevronLeft className="text-lg" />
-              <p>Prev</p>
-            </button>
+                      <div>
+                        <h3> {user.username}</h3>
+                        {getRankBadge(GetRankTag(user.exp), "text-xs")}
+                      </div>
+                    </div>
+                  </td>
+                  <td>{user.total_questionTaken}</td>
+                  <td>
+                    {user.total_questionTaken
+                      ? (
+                          user.total_consumedTime / user.total_questionTaken
+                        ).toFixed(2) + "s"
+                      : 0}
+                  </td>
+                  <td>
+                    {user.total_questionTaken
+                      ? (
+                          (user.total_correctAnswers /
+                            user.total_questionTaken) *
+                          100
+                        ).toFixed(2) + "%"
+                      : 0}
+                  </td>
+                  <td>{user.exp}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
-            <p className="font-bold text-green-800 "> {page}</p>
+        <div className="z-10 flex items-center justify-center gap-6 py-10 max-sm:pt-8 bg-orange-50">
+          <button
+            onClick={() => handleChangePage("prev")}
+            className="flex items-center gap-2 px-4 py-2 text-white transition-all bg-green-500 rounded-lg active:scale-95">
+            <LuChevronLeft className="text-lg" />
+            <p>Prev</p>
+          </button>
 
-            <button
-              onClick={() => handleChangePage("next")}
-              className="flex items-center gap-2 px-4 py-2 text-white transition-all bg-green-500 rounded-lg active:scale-95">
-              <p>Next</p>
-              <LuChevronRight className="text-lg" />
-            </button>
-          </div>
-        </>
-      )}
+          <p className="font-bold text-green-800 "> {page}</p>
+
+          <button
+            onClick={() => handleChangePage("next")}
+            className="flex items-center gap-2 px-4 py-2 text-white transition-all bg-green-500 rounded-lg active:scale-95">
+            <p>Next</p>
+            <LuChevronRight className="text-lg" />
+          </button>
+        </div>
+      </div>)}
     </div>
   );
 }

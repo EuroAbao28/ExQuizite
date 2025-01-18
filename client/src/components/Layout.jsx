@@ -17,6 +17,11 @@ function Layout() {
     try {
       const userToken = sessionStorage.getItem("userToken");
 
+      if(!userToken) {
+        navigate("/login");
+        return
+      }
+
       const response = await axios.get(userRoute, {
         headers: { Authorization: `Bearer ${userToken}` },
       });
